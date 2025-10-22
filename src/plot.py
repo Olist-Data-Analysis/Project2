@@ -47,8 +47,35 @@ def plot_hist(ax: Axes, x: pd.Series, xlabel: str, alpha: float, bins: int, dens
 
 
 # 누적 막대그래프 시각화 함수
-def plot_stacked_bar(data: pd.DataFrame, ax: Axes, var1: str, var2: str, label: str, colors: dict = None, cmap: str | Colormap | None = None, xrotation=0, yrotation=0):
-    data.T.plot(kind='bar', stacked=True, ax=ax, colormap=cmap, color=colors)
+def plot_stacked_bar(
+        data: pd.DataFrame, ax: Axes, var1: str, var2: str, label: str,
+        colors: dict = None, cmap: str | Colormap | None = None,
+        xrotation=0, yrotation=0,
+        normalize: str = None
+    ):
+    """
+    normalize: None, 'column', 'row', 'all'
+    - 'column': 각 열 별로 정규화
+    - 'row': 각 행 별로 정규화  
+    - 'all': 전체 데이터 기준 정규화
+    """
+    if normalize == 'column':
+        # 각 열의 합으로 나누어 비율로 변환 (0~1)
+        plot_data = data.div(data.sum(axis=0), axis=1) * 100  # 백분율로
+        fmt = '.1f'
+        label = f'{label} (%)'
+    elif normalize == 'row':
+        plot_data = data.div(data.sum(axis=1), axis=0) * 100
+        fmt = '.1f'
+        label = f'{label} (%)'
+    elif normalize == 'all':
+        plot_data = (data / data.sum().sum()) * 100
+        fmt = '.1f'
+        label = f'{label} (%)'
+    else:
+        plot_data = data
+        fmt = 'd'
+    plot_data.T.plot(kind='bar', stacked=True, ax=ax, colormap=cmap, color=colors)
     ax.set_title(f'{var1}별 {var2} 분포')
     ax.set_xlabel(var1)
     ax.set_ylabel(label)
