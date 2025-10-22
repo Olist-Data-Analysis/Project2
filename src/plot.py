@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 from numpy.typing import ArrayLike
 from matplotlib.axes import Axes
+import matplotlib.pyplot as plt
 from scipy import stats
 from matplotlib.colors import Colormap
 import seaborn as sns
@@ -76,10 +77,10 @@ def plot_stacked_bar(
         plot_data = data
         fmt = 'd'
     plot_data.T.plot(kind='bar', stacked=True, ax=ax, colormap=cmap, color=colors)
-    ax.set_title(f'{var1}별 {var2} 분포')
-    ax.set_xlabel(var1)
+    ax.set_title(f'{var2}별 {var1} 분포')
+    ax.set_xlabel(var2)
     ax.set_ylabel(label)
-    ax.legend(title=var2)
+    ax.legend(title=var1)
     ax.tick_params(axis='x', labelrotation=xrotation)
     ax.tick_params(axis='y', labelrotation=yrotation)
 
@@ -109,7 +110,7 @@ def plot_heatmap(data: pd.DataFrame, ax: Axes, var1: str, var2: str, label: str,
         fmt = 'd'
     sns.heatmap(plot_data, annot=True, fmt=fmt, cmap=cmap, ax=ax, 
                 cbar_kws={'label': label})
-    ax.set_title(f'{var1} × {var2} 히트맵')
+    ax.set_title(f'{var2} × {var1} 히트맵')
 
 # 비율 막대그래프 시각화 함수
 def plot_prop_bar(data: pd.DataFrame, ax: Axes, var1: str, var2: str, colors: Any = None, cmap: str | Colormap | None = None, xrotation=0, yrotation=0):
@@ -160,3 +161,27 @@ def plot_scatter_jitter(
     ax.grid(True, alpha=0.3)
     ax.tick_params(axis='x', labelrotation=xrotation)
     ax.tick_params(axis='y', labelrotation=yrotation)
+    
+
+def plot_one_feature(data: pd.DataFrame, feature, color, axes):
+    sns.boxplot(data, y=feature, color=color, ax=axes[0])
+    axes[0].set_title('Box Plot')
+    axes[0].grid(True, alpha=0.3)
+    stats.probplot(data[feature], dist="norm", plot=axes[1])
+    axes[1].set_title('Q-Q Plot')
+    axes[1].grid(True, alpha=0.3)
+    sns.histplot(data, x=feature, color=color, ax=axes[2])
+    axes[2].set_title('히스토그램')
+    axes[2].grid(True, alpha=0.3)
+
+def plot_features(data: pd.DataFrame, features, colors):
+    n = len(features)
+    fig, axes = plt.subplots(n, 3, figsize=(9, 3*n))
+    
+    for i in range(n):
+        feature, color = features[i], colors[i]
+        ax = axes if n == 1 else axes[i]
+        plot_one_feature(data, feature, color, ax)
+
+    plt.tight_layout()
+    plt.show()
