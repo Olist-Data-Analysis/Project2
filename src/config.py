@@ -4,6 +4,8 @@ PROJECT_DIR = Path(__file__).parent.parent
 DATA_DIR = PROJECT_DIR / 'data'
 MODEL_DIR = PROJECT_DIR / 'models'
 SRC_DIR = PROJECT_DIR / 'src'
+FONT_DIR = PROJECT_DIR / 'font'
+RESULT_DIR = PROJECT_DIR / 'results'
 
 state_neighbors = {
     "AC": ["AM", "RO"],

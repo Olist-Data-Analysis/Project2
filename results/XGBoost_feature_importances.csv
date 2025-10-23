@@ -1,0 +1,14 @@
+feature,importance
+order_qty,0.3745299
+photos_qty,0.110801004
+payment_installments,0.10174437
+delivery_duration,0.096025616
+payment_type,0.08548665
+review_score,0.08441383
+delivery_delay,0.03035947
+category,0.024519011
+freight_value,0.020072477
+weight_g,0.020045217
+state_cust,0.019513182
+price,0.017888214
+content_length,0.0146009745
