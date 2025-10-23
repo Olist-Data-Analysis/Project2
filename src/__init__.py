@@ -3,7 +3,7 @@ from .utils import cramers_v, interpret_cramers_v, check_expected_frequencies, s
     check_normality, check_homogeneity, calculate_eta_squared, calculate_epsilon_squared, perform_dunn_test, perform_gameshowell, perform_tukey_hsd, \
     generate_colormap, \
     calculate_distance, detect_and_remove_outliers
-from .config import state_neighbors, state_region_map, PROJECT_DIR, DATA_DIR, MODEL_DIR
+from .config import state_neighbors, state_region_map, PROJECT_DIR, DATA_DIR, MODEL_DIR, FONT_DIR, RESULT_DIR
 
 
 __all__ = [
@@ -12,6 +12,6 @@ __all__ = [
     'check_normality', 'check_homogeneity', 'calculate_eta_squared', 'calculate_epsilon_squared', 'perform_dunn_test', 'perform_gameshowell', 'perform_tukey_hsd', \
     'generate_colormap', \
     'calculate_distance', 'detect_and_remove_outliers', \
-    'state_neighbors', 'state_region_map', 'PROJECT_DIR', 'DATA_DIR', 'MODEL_DIR'
+    'state_neighbors', 'state_region_map', 'PROJECT_DIR', 'DATA_DIR', 'MODEL_DIR', 'FONT_DIR', 'RESULT_DIR'
 
 ]
